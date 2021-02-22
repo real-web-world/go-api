@@ -5,7 +5,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/real-web-world/go-web-api/global"
+	"github.com/real-web-world/go-api/global"
 )
 
 const (

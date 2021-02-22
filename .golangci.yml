@@ -27,7 +27,7 @@ linters-settings:
   gocyclo:
     min-complexity: 15
   goimports:
-    local-prefixes: github.com/real-web-world/go-web-api
+    local-prefixes: github.com/real-web-world/go-api
   golint:
     min-confidence: 0.8
   gomnd:

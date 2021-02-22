@@ -3,9 +3,9 @@ package user
 import (
 	"github.com/alexedwards/argon2id"
 
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/bdk"
-	"github.com/real-web-world/go-web-api/services/cache"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/bdk"
+	"github.com/real-web-world/go-api/services/cache"
 )
 
 func ValidUserPwd(inputPwd, hashPwd string) bool {

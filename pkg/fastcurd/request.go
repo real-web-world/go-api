@@ -7,15 +7,17 @@ const (
 
 type (
 	NullableDetailData struct {
-		ID    *int   `json:"id" binding:"omitempty"`
-		Scene string `json:"scene" binding:"omitempty"`
+		ID    *int                   `json:"id" binding:"omitempty"`
+		Scene string                 `json:"scene" binding:"omitempty"`
+		Extra map[string]interface{} `json:"extra" binding:"omitempty"`
 	}
 	IDData struct {
 		ID int `json:"id" binding:"required"`
 	}
 	DetailData struct {
-		ID    int    `json:"id" binding:"required"`
-		Scene string `json:"scene" binding:""`
+		ID    int                    `json:"id" binding:"required"`
+		Scene string                 `json:"scene" binding:""`
+		Extra map[string]interface{} `json:"extra" binding:""`
 	}
 	DelData struct {
 		IDs []int `json:"ids" binding:"required,min=1"`

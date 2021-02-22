@@ -5,9 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/real-web-world/go-web-api/api"
-	mid "github.com/real-web-world/go-web-api/middleware"
-	"github.com/real-web-world/go-web-api/models"
+	"github.com/real-web-world/go-api/api"
+	mid "github.com/real-web-world/go-api/middleware"
+	"github.com/real-web-world/go-api/models"
 )
 
 var (
@@ -70,10 +70,25 @@ func initCategoryModule(r *gin.Engine) {
 		}
 	}
 }
+func initArticleModule(r *gin.Engine) {
+	m := r.Group("article")
+	{
+		m.POST("detail", api.CommonDetail(&models.Article{}))
+		m.POST("list", api.CommonList(&models.Article{}))
+		admin := m.Group("/")
+		admin.Use(adminAuth)
+		{
+			admin.POST("edit", api.CommonEdit(&models.Article{}))
+			admin.POST("add", api.CommonAdd(&models.Article{}))
+			admin.POST("del", api.CommonDel(&models.Article{}))
+		}
+	}
+}
 func initAPIRoutes(r *gin.Engine) {
 	r.Any("test", api.TestHand)
 	r.POST("/serverInfo", api.ServerInfo)
 	initUserModule(r)
 	initTagModule(r)
 	initCategoryModule(r)
+	initArticleModule(r)
 }

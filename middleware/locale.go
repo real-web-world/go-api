@@ -3,9 +3,9 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/real-web-world/go-web-api/conf"
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/gin"
+	"github.com/real-web-world/go-api/conf"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/gin"
 )
 
 func Locale(appConf *conf.AppConf) gin.HandlerFunc {

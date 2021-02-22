@@ -3,9 +3,9 @@ package models
 import (
 	"gorm.io/gorm"
 
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/gin"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/pkg/gin"
 )
 
 type Category struct {
@@ -15,13 +15,15 @@ type Category struct {
 }
 
 const (
-	sceneWithCount = "withCount"
+	sceneWithArticleCount = "withArticleCount"
 )
 
 var (
 	CategoryFilterNameMapDBField = map[string]string{
 		"search": "id",
 		"id":     "id",
+		"name":   "name",
+		"pid":    "pid",
 		"ctime":  "ctime",
 	}
 	CategoryOrderKeyMap = map[string]string{
@@ -41,9 +43,9 @@ type EditCategoryData struct {
 	AddCategoryData
 	ID int `json:"id" binding:"required"`
 }
-type WithCountSceneCategory struct {
+type WithArticleCountSceneCategory struct {
 	*Category
-	ArticleCount int
+	ArticleCount int `json:"articleCount"`
 }
 
 func NewDefaultSceneCategory(m *Category) *DefaultSceneCategory {
@@ -52,8 +54,8 @@ func NewDefaultSceneCategory(m *Category) *DefaultSceneCategory {
 	}
 	return model
 }
-func NewWithCountSceneCategory(m *Category) *WithCountSceneCategory {
-	model := &WithCountSceneCategory{
+func NewWithArticleCountSceneCategory(m *Category) *WithArticleCountSceneCategory {
+	model := &WithArticleCountSceneCategory{
 		Category: m,
 	}
 	model.ArticleCount = m.GetArticleCount()
@@ -127,8 +129,8 @@ func (m *Category) GetFmtDetail(scenes ...string) Any {
 	var model Any
 	// nolint
 	switch scene {
-	case sceneWithCount:
-		model = NewWithCountSceneCategory(m)
+	case sceneWithArticleCount:
+		model = NewWithArticleCountSceneCategory(m)
 	default:
 		model = NewDefaultSceneCategory(m)
 	}
@@ -136,8 +138,8 @@ func (m *Category) GetFmtDetail(scenes ...string) Any {
 }
 
 func (m *Category) GetArticleCount() int {
-	// article:=
+	article := &Article{Base: Base{Ctx: m.Ctx}}
 	var count int64 = 0
-	m.GetGormQuery().Where("").Count(&count)
+	article.GetGormQuery().Where("category_id", m.ID).Count(&count)
 	return int(count)
 }

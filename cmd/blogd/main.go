@@ -10,9 +10,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/real-web-world/go-web-api/bootstrap"
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/routes"
+	"github.com/real-web-world/go-api/bootstrap"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/routes"
 )
 
 // @title buffge blog API

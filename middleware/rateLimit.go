@@ -9,7 +9,7 @@ import (
 	"github.com/patrickmn/go-cache"
 	"golang.org/x/time/rate"
 
-	"github.com/real-web-world/go-web-api/pkg/gin"
+	"github.com/real-web-world/go-api/pkg/gin"
 )
 
 var (

@@ -3,10 +3,10 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/models"
-	"github.com/real-web-world/go-web-api/pkg/gin"
-	"github.com/real-web-world/go-web-api/services/cache"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/models"
+	"github.com/real-web-world/go-api/pkg/gin"
+	"github.com/real-web-world/go-api/services/cache"
 )
 
 func Auth(c *gin.Context) {

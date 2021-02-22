@@ -6,13 +6,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/real-web-world/go-web-api/models"
-	"github.com/real-web-world/go-web-api/pkg/bdk"
-	"github.com/real-web-world/go-web-api/pkg/dto/retcode"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/gin"
-	"github.com/real-web-world/go-web-api/services/cache"
-	auth "github.com/real-web-world/go-web-api/services/user"
+	"github.com/real-web-world/go-api/models"
+	"github.com/real-web-world/go-api/pkg/bdk"
+	"github.com/real-web-world/go-api/pkg/dto/retcode"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/pkg/gin"
+	"github.com/real-web-world/go-api/services/cache"
+	auth "github.com/real-web-world/go-api/services/user"
 )
 
 type LoginData struct {

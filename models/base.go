@@ -8,8 +8,8 @@ import (
 	"github.com/stoewer/go-strcase"
 	"gorm.io/gorm"
 
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/gin"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/pkg/gin"
 )
 
 const (
@@ -26,7 +26,7 @@ var (
 
 type Any interface{}
 type Base struct {
-	ID                 int          `json:"id" gorm:"type:int unsigned auto_increment;primary_key;"`
+	ID                 int          `json:"id" gorm:"type:int unsigned auto_increment;primaryKey;"`
 	Ctime              *time.Time   `json:"ctime,omitempty" gorm:"type:datetime;default:CURRENT_TIMESTAMP;not null"`
 	Utime              *time.Time   `json:"utime,omitempty" gorm:"type:datetime ON UPDATE CURRENT_TIMESTAMP;default:CURRENT_TIMESTAMP;not null;"`
 	Dtime              *int64       `json:"dtime,omitempty" gorm:"type:int unsigned;default:0;not null"`
@@ -163,7 +163,7 @@ func Get(m BaseModel, args ...Any) error {
 	if len(args) == 2 {
 		key, ok := args[0].(string)
 		if !ok {
-			return errors.New("query condtion incorrect ,args[0] " +
+			return errors.New("query condition incorrect ,args[0] " +
 				"should be string,act is " + key)
 		}
 		switch args[1].(type) {
@@ -243,6 +243,10 @@ func Update(m BaseModel, args ...Any) (int, error) {
 			filter, _ := args[0].(fastcurd.Filter)
 			q = fastcurd.BuildFilterCond(m.GetFilterMap(), q, filter)
 		}
+	}
+	id := m.GetID()
+	if id != 0 {
+		q = q.Where("id = ?", id)
 	}
 	q = q.Updates(m)
 	if err := q.Error; err != nil {

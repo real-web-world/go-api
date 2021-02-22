@@ -3,7 +3,7 @@ package conf
 import (
 	"time"
 
-	"github.com/real-web-world/go-web-api/pkg/logger"
+	"github.com/real-web-world/go-api/pkg/logger"
 )
 
 type AppConf struct {

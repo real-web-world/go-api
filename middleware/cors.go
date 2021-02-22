@@ -7,7 +7,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
-	"github.com/real-web-world/go-web-api/conf"
+	"github.com/real-web-world/go-api/conf"
 )
 
 func Cors(appConf *conf.AppConf) gin.HandlerFunc {

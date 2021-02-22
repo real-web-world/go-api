@@ -1,11 +1,10 @@
 package models
 
 import (
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/pkg/gin"
 	"gorm.io/gorm"
-
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/gin"
 )
 
 type Tag struct {
@@ -28,6 +27,10 @@ var (
 type DefaultSceneTag struct {
 	*Tag
 }
+type WithArticleCountSceneTag struct {
+	*Tag
+	ArticleCount int `json:"articleCount"`
+}
 type AddTagData struct {
 	Name string `json:"name" binding:"required,min=1,max=32"`
 }
@@ -40,6 +43,13 @@ func NewDefaultSceneTag(m *Tag) *DefaultSceneTag {
 	model := &DefaultSceneTag{
 		m,
 	}
+	return model
+}
+func NewWithArticleCountSceneTag(m *Tag) *WithArticleCountSceneTag {
+	model := &WithArticleCountSceneTag{
+		Tag: m,
+	}
+	model.ArticleCount = m.GetArticleCount()
 	return model
 }
 func (m *Tag) NewModel() BaseModel {
@@ -97,6 +107,7 @@ func (m *Tag) GetFmtList(list Any, scene string) Any {
 	fmtList := make([]Any, 0, 1)
 	actList := list.(*[]*Tag)
 	for _, item := range *actList {
+		item.SetCtx(m.Ctx)
 		fmtList = append(fmtList, item.GetFmtDetail(scene))
 	}
 	return fmtList
@@ -109,8 +120,16 @@ func (m *Tag) GetFmtDetail(scenes ...string) Any {
 	var model Any
 	// nolint
 	switch scene {
+	case sceneWithArticleCount:
+		model = NewWithArticleCountSceneTag(m)
 	default:
 		model = NewDefaultSceneTag(m)
 	}
 	return model
+}
+func (m *Tag) GetArticleCount() int {
+	article := &ArticleTag{Base: Base{Ctx: m.Ctx}}
+	var count int64 = 0
+	article.GetGormQuery().Where("tag_id", m.ID).Count(&count)
+	return int(count)
 }

@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 
-	"github.com/real-web-world/go-web-api/pkg/gin"
+	"github.com/real-web-world/go-api/pkg/gin"
 )
 
 func ErrHandler(c *gin.Context) {

@@ -8,7 +8,7 @@ import (
 	sentryGin "github.com/getsentry/sentry-go/gin"
 	"github.com/gin-gonic/gin"
 
-	"github.com/real-web-world/go-web-api/conf"
+	"github.com/real-web-world/go-api/conf"
 )
 
 func GenerateSentryMiddleware(appConf *conf.AppConf) gin.HandlerFunc {

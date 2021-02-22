@@ -8,9 +8,9 @@ import (
 	"github.com/gomodule/redigo/redis"
 	"github.com/pkg/errors"
 
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/bdk"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/bdk"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
 )
 
 var (

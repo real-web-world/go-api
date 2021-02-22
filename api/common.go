@@ -1,17 +1,18 @@
 package api
 
 import (
+	"github.com/real-web-world/go-api/assets"
 	"image/png"
 
 	"github.com/afocus/captcha"
 	"github.com/gin-gonic/gin"
 
-	"github.com/real-web-world/go-web-api"
-	"github.com/real-web-world/go-web-api/models"
-	"github.com/real-web-world/go-web-api/pkg/dto/retcode"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/gin"
-	"github.com/real-web-world/go-web-api/services/cache"
+	"github.com/real-web-world/go-api"
+	"github.com/real-web-world/go-api/models"
+	"github.com/real-web-world/go-api/pkg/dto/retcode"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/pkg/gin"
+	"github.com/real-web-world/go-api/services/cache"
 )
 
 type VersionInfo struct {
@@ -61,7 +62,7 @@ func GetCaptcha(c *gin.Context) {
 	capHeight := 60
 	captchaCode := captcha.New()
 	// 设置字体
-	if err := captchaCode.SetFont("assets/fonts/1.ttf"); err != nil {
+	if err := captchaCode.AddFontFromBytes(assets.DefaultFont); err != nil {
 		panic(err.Error())
 	}
 	captchaCode.SetSize(capWidth, capHeight)
@@ -77,8 +78,8 @@ func GetCaptcha(c *gin.Context) {
 func UserCommonList(m models.BaseModel) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		app := ginApp.GetApp(c)
-		m.SetCtx(c)
 		m = m.NewModel()
+		m.SetCtx(c)
 		d := &fastcurd.ListData{}
 		if err := c.ShouldBindJSON(d); err != nil {
 			app.ValidError(err)
@@ -114,8 +115,8 @@ func UserCommonList(m models.BaseModel) gin.HandlerFunc {
 func UserCommonDetail(m models.BaseModel) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		app := ginApp.GetApp(c)
-		m.SetCtx(c)
 		m = m.NewModel()
+		m.SetCtx(c)
 		type postData struct {
 			ID  int `json:"id" binding:"required"`
 			UID int `json:"uid"`
@@ -149,8 +150,8 @@ func UserCommonDetail(m models.BaseModel) gin.HandlerFunc {
 }
 func CommonDetail(m models.BaseModel) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		m.SetCtx(c)
 		m = m.NewModel()
+		m.SetCtx(c)
 		app := ginApp.GetApp(c)
 		d := &fastcurd.DetailData{}
 		if err := c.ShouldBindJSON(d); err != nil {
@@ -173,8 +174,8 @@ func CommonDetail(m models.BaseModel) gin.HandlerFunc {
 }
 func CommonList(m models.BaseModel) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		m.SetCtx(c)
 		m = m.NewModel()
+		m.SetCtx(c)
 		app := ginApp.GetApp(c)
 		d := &fastcurd.ListData{}
 		if d.Order == nil {
@@ -207,8 +208,8 @@ func CommonList(m models.BaseModel) gin.HandlerFunc {
 }
 func CommonAdd(m models.BaseModel) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		m.SetCtx(c)
 		m = m.NewModel()
+		m.SetCtx(c)
 		app := ginApp.GetApp(c)
 		d := m.NewAddData()
 		if err := c.ShouldBindJSON(d); err != nil {
@@ -224,8 +225,8 @@ func CommonAdd(m models.BaseModel) gin.HandlerFunc {
 }
 func CommonEdit(m models.BaseModel) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		m.SetCtx(c)
 		m = m.NewModel()
+		m.SetCtx(c)
 		app := ginApp.GetApp(c)
 		d := m.NewEditData()
 		if err := c.ShouldBindJSON(d); err != nil {
@@ -250,8 +251,8 @@ func CommonEdit(m models.BaseModel) gin.HandlerFunc {
 }
 func CommonDel(m models.BaseModel) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		m.SetCtx(c)
 		m = m.NewModel()
+		m.SetCtx(c)
 		app := ginApp.GetApp(c)
 		d := &fastcurd.DelData{}
 		if err := c.ShouldBindJSON(d); err != nil {

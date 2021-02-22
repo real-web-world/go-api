@@ -3,20 +3,26 @@ package models
 import (
 	"gorm.io/gorm"
 
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/gin"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/pkg/gin"
 )
 
 type ArticleTag struct {
 	Base
+	ArticleID int `json:"articleID" gorm:"type:int unsigned;not null;default:0;index:articleID"`
+	TagID     int `json:"tagID" gorm:"type:int unsigned;not null;default:0;index:tagID"`
+	Sort      int `json:"sort" gorm:"type:int unsigned;not null;default:0"`
 }
 
 var (
 	ArticleTagFilterNameMapDBField = map[string]string{
-		"search": "id",
-		"id":     "id",
-		"ctime":  "ctime",
+		"search":    "id",
+		"id":        "id",
+		"articleID": "article_id",
+		"tagID":     "tag_id",
+		"sort":      "sort",
+		"ctime":     "ctime",
 	}
 	ArticleTagOrderKeyMap = map[string]string{
 		"id":    "id",
@@ -109,4 +115,17 @@ func (m *ArticleTag) GetFmtDetail(scenes ...string) Any {
 		model = NewDefaultSceneArticleTag(m)
 	}
 	return model
+}
+func (m *ArticleTag) GetTag() *Tag {
+	relation := &Tag{Base: Base{
+		Ctx: m.Ctx,
+	}}
+	if m.TagID == 0 {
+		return nil
+	}
+	relation.GetGormQuery().Where("id = ?", m.TagID).First(relation)
+	if relation.ID == 0 {
+		return nil
+	}
+	return relation
 }

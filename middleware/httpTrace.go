@@ -2,7 +2,8 @@ package middleware
 
 import (
 	"bytes"
-	"io/ioutil"
+	ginApp "github.com/real-web-world/go-api/pkg/gin"
+	"io"
 	"mime/multipart"
 	"net/http"
 	"net/textproto"
@@ -12,10 +13,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/bdk"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/gin"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/bdk"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
 )
 
 const (
@@ -44,6 +44,13 @@ type Trace struct {
 }
 
 func HTTPTrace(c *gin.Context) {
+	path := c.Request.URL.Path
+	isDevApi := path == global.PrometheusApi ||
+		strings.Index(path, global.DebugApiPrefix) == 0
+	if isDevApi {
+		c.Next()
+		return
+	}
 	app := ginApp.GetApp(c)
 	reqID := app.GetReqID()
 	begin := app.GetProcBeginTime()
@@ -76,8 +83,8 @@ func HTTPTrace(c *gin.Context) {
 		}
 	case "application/json":
 		// todo bts sync.pool
-		bodyBts, _ := ioutil.ReadAll(c.Request.Body)
-		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBts))
+		bodyBts, _ := io.ReadAll(c.Request.Body)
+		c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBts))
 		trace.PostData = bdk.Bytes2Str(bodyBts)
 	}
 	c.Next()

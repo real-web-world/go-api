@@ -4,9 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 
-	"github.com/real-web-world/go-web-api/api"
-	"github.com/real-web-world/go-web-api/global"
-	mid "github.com/real-web-world/go-web-api/middleware"
+	"github.com/real-web-world/go-api/api"
+	"github.com/real-web-world/go-api/global"
+	mid "github.com/real-web-world/go-api/middleware"
 )
 
 func initWebRoutes(r *gin.Engine) {

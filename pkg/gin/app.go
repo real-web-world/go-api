@@ -10,11 +10,11 @@ import (
 	"github.com/go-playground/validator/v10"
 	uuid "github.com/satori/go.uuid"
 
-	"github.com/real-web-world/go-web-api/pkg/bdk"
-	"github.com/real-web-world/go-web-api/pkg/dto/retcode"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/logger"
-	"github.com/real-web-world/go-web-api/services/cache"
+	"github.com/real-web-world/go-api/pkg/bdk"
+	"github.com/real-web-world/go-api/pkg/dto/retcode"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/pkg/logger"
+	"github.com/real-web-world/go-api/services/cache"
 )
 
 const (

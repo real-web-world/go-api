@@ -7,7 +7,7 @@ import (
 	_ "gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
-	"github.com/real-web-world/go-web-api/conf"
+	"github.com/real-web-world/go-api/conf"
 )
 
 const (

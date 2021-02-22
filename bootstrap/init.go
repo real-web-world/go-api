@@ -28,13 +28,13 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
 
-	"github.com/real-web-world/go-web-api/conf"
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/middleware"
-	"github.com/real-web-world/go-web-api/pkg/bdk"
-	"github.com/real-web-world/go-web-api/pkg/gin"
-	"github.com/real-web-world/go-web-api/pkg/logger"
-	"github.com/real-web-world/go-web-api/pkg/valid"
+	"github.com/real-web-world/go-api/conf"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/middleware"
+	"github.com/real-web-world/go-api/pkg/bdk"
+	"github.com/real-web-world/go-api/pkg/gin"
+	"github.com/real-web-world/go-api/pkg/logger"
+	"github.com/real-web-world/go-api/pkg/valid"
 )
 
 func initConf() {

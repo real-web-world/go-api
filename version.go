@@ -4,4 +4,4 @@ const (
 	APIVersion = "1.0.0"
 )
 
-var Commit = "undefined"
+var Commit = "dev"

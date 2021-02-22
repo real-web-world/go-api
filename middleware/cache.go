@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/real-web-world/go-web-api/pkg/gin"
-	"github.com/real-web-world/go-web-api/services/cache"
+	"github.com/real-web-world/go-api/pkg/gin"
+	"github.com/real-web-world/go-api/services/cache"
 )
 
 func Cache(d time.Duration, keyParam ...string) gin.HandlerFunc {

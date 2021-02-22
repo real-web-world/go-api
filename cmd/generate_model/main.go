@@ -1,11 +1,11 @@
 package main
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 
-	"github.com/real-web-world/go-web-api/pkg/bdk"
+	"github.com/real-web-world/go-api/pkg/bdk"
 )
 
 const (
@@ -20,7 +20,7 @@ func main() {
 		panic("tpl don't exist")
 	}
 	defer tplFile.Close()
-	tplBytes, err := ioutil.ReadAll(tplFile)
+	tplBytes, err := io.ReadAll(tplFile)
 	if err != nil {
 		panic("read tpl failed")
 	}

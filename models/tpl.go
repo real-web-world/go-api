@@ -5,9 +5,9 @@ package models
 import (
 	"gorm.io/gorm"
 
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/gin"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/pkg/gin"
 )
 
 type Tpl struct {
@@ -21,7 +21,8 @@ var (
 		"ctime":  "ctime",
 	}
 	TplOrderKeyMap = map[string]string{
-		"id": "id",
+		"id":    "id",
+		"ctime": "ctime",
 	}
 )
 
@@ -94,6 +95,7 @@ func (m *Tpl) GetFmtList(list Any, scene string) Any {
 	fmtList := make([]Any, 0, 1)
 	actList := list.(*[]*Tpl)
 	for _, item := range *actList {
+		item.SetCtx(m.Ctx)
 		fmtList = append(fmtList, item.GetFmtDetail(scene))
 	}
 	return fmtList

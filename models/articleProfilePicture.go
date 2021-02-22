@@ -3,23 +3,26 @@ package models
 import (
 	"gorm.io/gorm"
 
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/fastcurd"
-	"github.com/real-web-world/go-web-api/pkg/gin"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/fastcurd"
+	"github.com/real-web-world/go-api/pkg/gin"
 )
 
 type ArticleProfilePicture struct {
 	Base
-	ArticleID int `json:"title" gorm:"type:varchar(128);not null"`
-	picID     int `json:"categoryID" gorm:"type:int unsigned;not null;default:0"`
-	Sort      int `json:"author_uid" gorm:"type:int unsigned;not null;default:0"`
+	ArticleID int `json:"title" gorm:"type:varchar(128);not null;index:articleID"`
+	PicID     int `json:"picID" gorm:"type:int unsigned;not null;default:0;index:picID"`
+	Sort      int `json:"sort" gorm:"type:int unsigned;not null;default:0"`
 }
 
 var (
 	ArticleProfilePictureFilterNameMapDBField = map[string]string{
-		"search": "id",
-		"id":     "id",
-		"ctime":  "ctime",
+		"search":    "id",
+		"id":        "id",
+		"articleID": "article_id",
+		"picID":     "pic_id",
+		"sort":      "sort",
+		"ctime":     "ctime",
 	}
 	ArticleProfilePictureOrderKeyMap = map[string]string{
 		"id":    "id",
@@ -112,4 +115,17 @@ func (m *ArticleProfilePicture) GetFmtDetail(scenes ...string) Any {
 		model = NewDefaultSceneArticleProfilePicture(m)
 	}
 	return model
+}
+func (m *ArticleProfilePicture) GetFile() *File {
+	relation := &File{Base: Base{
+		Ctx: m.Ctx,
+	}}
+	if m.PicID == 0 {
+		return nil
+	}
+	relation.GetGormQuery().Where("id = ?", m.PicID).First(relation)
+	if relation.ID == 0 {
+		return nil
+	}
+	return relation
 }

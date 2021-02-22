@@ -8,10 +8,10 @@ import (
 	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 
-	"github.com/real-web-world/go-web-api/global"
-	"github.com/real-web-world/go-web-api/pkg/bdk"
-	"github.com/real-web-world/go-web-api/pkg/gin"
-	"github.com/real-web-world/go-web-api/pkg/valid"
+	"github.com/real-web-world/go-api/global"
+	"github.com/real-web-world/go-api/pkg/bdk"
+	"github.com/real-web-world/go-api/pkg/gin"
+	"github.com/real-web-world/go-api/pkg/valid"
 )
 
 func init() {
@@ -130,7 +130,7 @@ type AddUserData struct {
 	Profile  *string          `json:"profile" binding:"omitempty,max=500"`
 }
 type EditUserData struct {
-	ID       *int             `json:"id" gorm:"primary_key" binding:"omitempty,min=0"`
+	ID       *int             `json:"id" gorm:"primaryKey" binding:"omitempty,min=0"`
 	Name     string           `json:"name" binding:"required,min=1,max=12"`
 	Level    ginApp.UserLevel `json:"level" binding:"omitempty,validUserLevel"`
 	Gender   ginApp.Gender    `json:"gender" binding:"omitempty,validGender"`
@@ -165,7 +165,7 @@ type DefaultSceneUser struct {
 	FollowCount  *int              `json:"followCount,omitempty"`  // 关注数
 }
 type ProfileSceneUser struct {
-	ID      int               `json:"id" gorm:"primary_key" binding:"required,min=0"`
+	ID      int               `json:"id" gorm:"primaryKey" binding:"required,min=0"`
 	Name    string            `json:"name" binding:""`
 	Profile *string           `json:"profile"`
 	Avatar  *DefaultSceneFile `json:"avatar,omitempty"`
